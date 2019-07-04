@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="/assets/img/logo.png" width="80" height="80" class="d-inline-block align-top"
+      alt="logo">
+    
+  </a>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+      <mat-icon class="icon-2x white-icon ">notifications</mat-icon>&nbsp; &nbsp;&nbsp;
+      <mat-icon class="icon-2x white-icon ">settings</mat-icon>&nbsp; &nbsp;&nbsp;
+      <i class="fa fa-calendar text-white fa-2x" aria-hidden="true"></i>&nbsp; &nbsp;&nbsp;
+      <i class="fa fa-sign-in text-white fa-2x" aria-hidden="true"></i>
+    </ul>
+  </div>
+</nav>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let row of rows">{{row.title}}</li>
+</ul>
