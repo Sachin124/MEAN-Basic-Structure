@@ -42,4 +42,15 @@ router.get('/posts', (req, res) => {
 });
 
 
+
+router.post('/saveAngular', (req,res)=>{
+
+  console.log(req.body.name, req.body.age );
+  var a = { name : req.body.name, age : req.body.age};
+  res.status(200).json(a);
+
+  
+});
+
+
 module.exports = router;
