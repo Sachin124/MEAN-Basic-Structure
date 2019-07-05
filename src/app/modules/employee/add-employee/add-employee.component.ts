@@ -1,6 +1,9 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import {
   DataService
@@ -13,16 +16,23 @@ import {
 })
 export class AddEmployeeComponent implements OnInit {
   empData = {};
+  @Input() editEmployeeData: any;
+  @Output() addEmployee = new EventEmitter();
   constructor(private dataService: DataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.editEmployeeData) {
+      this.empData = this.editEmployeeData;
+    }
+  }
 
-  addEmployee(value) {
+  addEmpData(value) {
     console.log(value);
-    this.dataService.addEmployee(value).subscribe(res => {
-      console.log(res);
-    }, error => {
-      console.log(error);
-    })
+    this.addEmployee.emit(value)
+    // this.dataService.addEmployee(value).subscribe(res => {
+    //   console.log(res);
+    // }, error => {
+    //   console.log(error);
+    // })
   }
 }

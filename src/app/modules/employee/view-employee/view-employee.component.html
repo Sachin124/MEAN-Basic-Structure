@@ -20,6 +20,9 @@
             <td>{{row.Designation}}</td>
             <td>{{row.Skills}}</td>
             <td>{{row.salary}}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="editEmployee(template,row)">edit</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -36,6 +39,6 @@
       </button>
     </div>
     <div class="modal-body">
-      <app-add-employee></app-add-employee>
+      <app-add-employee (addEmployee)="addEmployee($event)" (onClose)="execOnClose($event)" [editEmployeeData]="editEmployeeData"></app-add-employee>
     </div>
   </ng-template>

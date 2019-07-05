@@ -9,13 +9,12 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class ViewEmployeeComponent implements OnInit {
   rows: any;
   modalRef: BsModalRef;
+  editEmployeeData: any;
   constructor(private dataService : DataService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.getEmployee();
   }
-
-
 
   getEmployee(){
     this.dataService.getEmployee().subscribe(res=>{
@@ -24,10 +23,36 @@ export class ViewEmployeeComponent implements OnInit {
     },error=>{
       console.log(error);      
     })
-  }
+  }  
 
 
   openModal(template: TemplateRef<any>) {
+    this.editEmployeeData = null;
     this.modalRef = this.modalService.show(template);
   }
+
+  onClose(){
+    this.modalRef.hide();
+  }
+
+  addEmployee(value) {
+    console.log(value);
+    this.dataService.addEmployee(value).subscribe(res => {
+      console.log(res);
+      this.onClose();
+      this.getEmployee();
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  editEmployee(template: TemplateRef<any>,editData){
+    console.log(editData);
+    this.editEmployeeData = null;
+
+    this.editEmployeeData = editData;    
+    this.modalRef = this.modalService.show(template);
+  }
+
+
 }
