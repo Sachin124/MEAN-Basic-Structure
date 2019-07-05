@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver, private dataService: DataService) {}
 
   ngOnInit() {
-    this.getData();
+    // this.getData();
   }
 
   getData() {
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
     
     this.dataService.saveData(value).subscribe(res => {
       console.log(res);
-      this.getData();
+      this.getData(); 
     }, error => {
       console.log(error);
     })

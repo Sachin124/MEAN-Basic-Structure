@@ -50,7 +50,9 @@ router.post('/saveAngular', (req, res) => {
 
   console.log(req.body.version);
   var a = {
-    version: req.body.version
+    version: req.body.version,
+    name: req.body.name
+
   };
   // res.status(200).json(a);
   // axios.get(`${API}/saveAngular`)
@@ -64,13 +66,11 @@ router.post('/saveAngular', (req, res) => {
           res.status(200).json(a);
         });
       });
-
-    // })
-    // .catch(error => {
-    //   res.status(500).send(error)
-    // });
-
 });
+
+
+
+
 
 
 module.exports = router;

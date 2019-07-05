@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="card">
+    <div class="card-body">
+  <button class="pull-right btn btn-info btn-md" (click)="openModal(template)">Add Employee</button>
+
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>First</th>
+            <th>Last</th>
+            <th>Designation</th>
+            <th>Salary</th>
+            <th>Skills</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <th>{{row.firstname}}</th>
+            <td>{{row.lastname}}</td>
+            <td>{{row.Designation}}</td>
+            <td>{{row.Skills}}</td>
+            <td>{{row.salary}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-add-employee></app-add-employee>
+    </div>
+  </ng-template>

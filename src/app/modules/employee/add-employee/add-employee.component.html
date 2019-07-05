@@ -1,0 +1,23 @@
+<form #empForm="ngForm">
+    <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input type="text" class="form-control" [(ngModel)]="empData.firstname" name="firstname" id="firstname" placeholder="Enter First name">
+    </div>
+    <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input type="text" class="form-control" [(ngModel)]="empData.lastname" name="lastname" id="lastname" placeholder="Enter last name">
+    </div>
+    <div class="form-group">
+        <label for="Designation">Designation</label>
+        <input type="text" class="form-control" [(ngModel)]="empData.Designation" name="Designation" id="Designation" placeholder="Enter Designation">
+    </div>
+    <div class="form-group">
+        <label for="Skills">Skills Name</label>
+        <input type="text" class="form-control" [(ngModel)]="empData.Skills" name="Skills" id="Skills" placeholder="Enter Skills">
+    </div>
+    <div class="form-group">
+        <label for="salary">First Name</label>
+        <input type="text" class="form-control" [(ngModel)]="empData.salary" name="salary" id="salary" placeholder="Enter Salary">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="addEmployee(empForm.value)">Submit</button>
+</form>
