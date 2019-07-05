@@ -32,4 +32,8 @@ export class DataService {
   addEmployee(employee):Observable<any>{
     return this.httpClient.post<any>(`${this.baseUrl}addEmployee`, employee)
   }
+
+  deleteEmployee(employeeId: number):Observable<any>{
+    return this.httpClient.delete<any>(`${this.baseUrl}deleteEmployee/${employeeId}`)
+  }
 }

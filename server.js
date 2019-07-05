@@ -9,6 +9,8 @@ const api = require('./api/api');
 
 const employeeApi = require('./api/employee');
 
+// const mvc_moongoose = require('./api/controller/emp_controller.js');
+
 var cors = require('cors')
 
 var app = express()
@@ -24,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Set our api routes
 app.use('/api', api);
 app.use('/api', employeeApi)
+// app.use('/mvc_api',mvc_moongoose);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

@@ -54,5 +54,15 @@ export class ViewEmployeeComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  deleteEmployee(employeeId){
+    console.log(employeeId);
+    this.dataService.deleteEmployee(employeeId).subscribe(res=>{
+      console.log(res);      
+      this.getEmployee();
+    },error=>{
+      console.log(error);      
+    })
+    
+  }
 
 }

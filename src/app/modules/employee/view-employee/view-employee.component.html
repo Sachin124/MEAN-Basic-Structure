@@ -22,6 +22,8 @@
             <td>{{row.salary}}</td>
             <td>
               <button class="btn btn-primary btn-sm" (click)="editEmployee(template,row)">edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteEmployee(row._id)">delete</button>
+
             </td>
           </tr>
         </tbody>

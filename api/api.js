@@ -69,8 +69,4 @@ router.post('/saveAngular', (req, res) => {
 });
 
 
-
-
-
-
 module.exports = router;
