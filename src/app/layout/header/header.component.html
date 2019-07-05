@@ -13,7 +13,30 @@
     </ul>
   </div>
 </nav>
-
+<!-- 
 <ul class="list-group">
-  <li class="list-group-item" *ngFor="let row of rows">{{row.title}}</li>
-</ul>
+  <li class="list-group-item" *ngFor="let row of rows">{{row.version}}</li>
+</ul> -->
+<form #angularVestion="ngForm">
+  <div class="form-group">
+    <label for="exampleInputPassword1">Version</label>
+    <input type="text" class="form-control" [(ngModel)]="version" name="version" id="vesrion" placeholder="Angular Version">
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="addAngular(angularVestion.value)" >Submit</button>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of rows">
+      <td>{{row._id}}</td>
+      <td>{{row.version}}</td>
+    </tr>
+    
+  </tbody>
+</table>

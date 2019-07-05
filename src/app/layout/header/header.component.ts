@@ -36,4 +36,16 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+
+  addAngular(value) {
+    console.log(value);
+    
+    this.dataService.saveData(value).subscribe(res => {
+      console.log(res);
+      this.getData();
+    }, error => {
+      console.log(error);
+    })
+  }
+
 }

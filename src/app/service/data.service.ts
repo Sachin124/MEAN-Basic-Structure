@@ -13,4 +13,8 @@ export class DataService {
   getData():Observable<any>{
    return this.httpClient.get<any>('http://localhost:3000/api/posts');
   }
+
+  saveData(model):Observable<any>{
+    return this.httpClient.post<any>('http://localhost:3000/api/saveAngular', model);
+  }
 }
