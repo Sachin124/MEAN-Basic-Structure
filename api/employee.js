@@ -16,7 +16,10 @@ router.get('/', (req, res) => {
   res.send('api works');
 });
 
-const {MongoClient, ObjectId} = require('mongodb');
+const {
+  MongoClient,
+  ObjectId
+} = require('mongodb');
 const ObjectID = require('mongodb').ObjectId;
 
 // var ObjectId = require('mongodb').ObjectID;
@@ -36,63 +39,105 @@ const ObjectID = require('mongodb').ObjectId;
 
 
 // Get all posts
-router.get('/getEmployee', (req, res) => {  
-        MongoClient.connect('mongodb://localhost:27017/mean', (err, db) => {
-          db.collection('employees').find().toArray().then((docs) => {
-            if (err) {
-              return console.log('Unable TO fetch data');
-            }
-            res.status(200).json(docs);
-          });
-        });  
-      })
-      
+router.get('/getEmployee', (req, res) => {
+  MongoClient.connect('mongodb://localhost:27017/mean', (err, db) => {
+    db.collection('employees').find().toArray().then((docs) => {
+      if (err) {
+        return console.log('Unable TO fetch data');
+      }
+      res.status(200).json(docs);
+    });
+  });
+})
+
 //   });
 
 
 router.post('/addemployee', (req, res) => {
-    console.log(req.body);
-    var employeeData = {
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      Designation: req.body.Designation,
-      Skills: req.body.Skills,
-      salary: req.body.salary  
-    };
-        MongoClient.connect('mongodb://localhost:27017/mean', (err, db) => {
-          db.collection('employees').insertOne(employeeData).then((docs) => {
-            if (err) {
-              return console.log('Unable TO fetch data');
-            }
-            res.status(200).json(employeeData);
-          });
-        });
-  });
-
-  router.delete('/deleteEmployee/:id',(req,res)=>{
-    MongoClient.connect('mongodb://localhost:27017/mean', (err,db)=>{
-        // collection.deleteOne({_id: new mongodb.ObjectID('4d512b45cc9374271b00000f')})
-        db.collection("employees").findOneAndDelete({ _id: new ObjectId(req.params.id)}, function(err, obj) {
-
-            console.log(obj);
-
-            if (err) throw err;
-            else
-                console.log('done');
-            // console.log("1 document deleted");
-            let statusCode ={
-                statusCode: '200OK',
-                response: "Ekdum correct",
-                message: 'Zala re delete'
-            }
-            res.status(200).json(statusCode)
-          db.close();
-
-           
-          });
+  console.log(req.body);
+  var employeeData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    Designation: req.body.Designation,
+    Skills: req.body.Skills,
+    salary: req.body.salary
+  };
+  MongoClient.connect('mongodb://localhost:27017/mean', (err, db) => {
+    db.collection('employees').insertOne(employeeData).then((docs) => {
+      if (err) {
+        return console.log('Unable TO fetch data');
+      }
+      res.status(200).json(employeeData);
     });
   });
+});
+
+router.delete('/deleteEmployee/:id', (req, res) => {
+  MongoClient.connect('mongodb://localhost:27017/mean', (err, db) => {
+    // collection.deleteOne({_id: new mongodb.ObjectID('4d512b45cc9374271b00000f')})
+    db.collection("employees").findOneAndDelete({
+      _id: new ObjectId(req.params.id)
+    }, function (err, obj) {
+
+      console.log(obj);
+
+      if (err) throw err;
+      else
+        console.log('done');
+      // console.log("1 document deleted");
+      let statusCode = {
+        statusCode: '200OK',
+        response: "Ekdum correct",
+        message: 'Zala re delete'
+      }
+      res.status(200).json(statusCode)
+      db.close();
+
+
+    });
+  });
+});
+
+
+
+
+
+router.put('/editEmployee/:id', (req, res) => {
+  MongoClient.connect('mongodb://localhost:27017/mean', (err, db) => {
+    var newvalues = {
+      $set: {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        Designation: req.body.Designation,
+        Skills: req.body.Skills,
+        salary: req.body.salary
+      }
+    };
+    // collection.deleteOne({_id: new mongodb.ObjectID('4d512b45cc9374271b00000f')})
+    db.collection("employees").findOneAndUpdate({
+      _id: new ObjectId(req.params.id)
+    }, newvalues, function (err, obj) {
+
+      console.log(obj);
+
+      if (err) throw err;
+      else
+        console.log('done');
+      // console.log("1 document deleted");
+      let statusCode = {
+        statusCode: '200OK',
+        response: "Ekdum correct",
+        message: 'Zala re Update'
+      }
+      res.status(200).json(statusCode)
+      db.close();
+
+
+    });
+  });
+});
+
+
 
 
 module.exports = router;
-

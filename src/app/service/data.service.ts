@@ -36,4 +36,8 @@ export class DataService {
   deleteEmployee(employeeId: number):Observable<any>{
     return this.httpClient.delete<any>(`${this.baseUrl}deleteEmployee/${employeeId}`)
   }
+
+  adffsdf(employeeId:number, empData:any){
+    return this.httpClient.put<any>(`${this.baseUrl}editEmployee/${employeeId}`, empData)
+  }
 }

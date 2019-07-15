@@ -35,4 +35,12 @@ export class AddEmployeeComponent implements OnInit {
     //   console.log(error);
     // })
   }
+
+  editEmployee(value){
+    this.dataService.editEmployee(this.editEmployeeData._id, value).subscribe(res=>{
+      console.log(res);      
+    },error=>{
+      console.log(error);      
+    })
+  }
 }

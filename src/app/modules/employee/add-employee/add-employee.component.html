@@ -19,5 +19,7 @@
         <label for="salary">First Name</label>
         <input type="text" class="form-control" [(ngModel)]="empData.salary" name="salary" id="salary" placeholder="Enter Salary">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="addEmpData(empForm.value)">Submit</button>
+    <button *ngIf="!editEmployeeData" type="submit" class="btn btn-primary" (click)="addEmpData(empForm.value)">Submit</button>
+    <button *ngIf="editEmployeeData" type="submit" class="btn btn-primary" (click)="editEmployee(empForm.value)">Update</button>
+
 </form>
