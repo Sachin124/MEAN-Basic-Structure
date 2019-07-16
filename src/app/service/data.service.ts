@@ -37,7 +37,7 @@ export class DataService {
     return this.httpClient.delete<any>(`${this.baseUrl}deleteEmployee/${employeeId}`)
   }
 
-  adffsdf(employeeId:number, empData:any){
+  editEmployee(employeeId:number, empData:any){
     return this.httpClient.put<any>(`${this.baseUrl}editEmployee/${employeeId}`, empData)
   }
 }

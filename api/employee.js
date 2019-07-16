@@ -9,8 +9,8 @@ const axios = require('axios');
 const API = 'https://jsonplaceholder.typicode.com';
 var cors = require('cors')
 // const mongo = require('mongodb');
-var app = express()
-app.use(cors())
+var app = express();
+app.use(cors());
 /* GET api listing. */
 router.get('/', (req, res) => {
   res.send('api works');
