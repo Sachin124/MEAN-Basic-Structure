@@ -1,0 +1,37 @@
+
+const express = require('express');
+const app = express();
+const userLogin =  require('../controllers/login')
+app.post('/login', userLogin.login);
+// app.post('/forgotPassword', userLogin.forgotPassword);
+// app.post('/checkToken', userLogin.checkToken);
+// app.post('/changePassword', userLogin.changePassword);
+// app.post('/getSkillsList',skills.getSkillsList);
+// app.post('/addSkills',skills.addSkills);
+// app.put('/deleteSkill/:id',skills.deleteSkill);
+// app.put('/updateSkill/:id',skills.updateSkill);
+// app.post('/addTailgateTopic', tailgate.addTailgateTopic);
+// app.post('/getTailgateTopic', tailgate.getTailgateTopic);
+// app.post('/getTailgateTopicById', tailgate.getTailgateTopicById);
+// app.post('/editTailgateTopic', tailgate.editTailgateTopic);;
+// app.post('/deleteTailgateTopic', tailgate.deleteTailgateTopic);
+// app.post('/getLicense', license.getLicense);
+// app.post('/deleteLicense', license.deleteLicense);
+// app.post('/editLicense', license.editLicense);
+// app.post('/addLicense', license.addLicense);
+// app.post('/getLicenseById', license.getLicenseById);
+// app.post('/addConsumable', consumables.addConsumable);
+// app.post('/getConsumable', consumables.getConsumable);
+// app.post('/getConsumableById', consumables.getConsumableById);
+// app.post('/editConsumable', consumables.editConsumable);
+// app.post('/deleteConsumable', consumables.deleteConsumable);
+// app.post('/addUnit', unit.addUnit);
+// app.post('/getUnit', unit.getUnit);
+// app.post('/getUnitById', unit.getUnitById);
+// app.post('/editUnit', unit.editUnit);
+// app.post('/deleteUnit', unit.deleteUnit);
+// app.post('/addRole', role.addRole);
+// app.post('/getRole', role.getRole);
+// app.post('/getRoleById', role.getRoleById);
+// app.post('/editRole', role.editRole);
+// app.post('/deleteRole', role.deleteRole);
