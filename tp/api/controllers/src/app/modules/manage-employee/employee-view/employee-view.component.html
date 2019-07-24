@@ -1,0 +1,143 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon card-header-info">
+            <div class="pull-right hero">
+              <button class="btn btn-md btn-info" (click)="addEmployee()">Add Employee</button>
+            </div>
+            <div class="card-icon">
+              <i class="material-icons hero">assignment</i>
+            </div>
+            <h4 class="card-title hero">Employee Details</h4>
+            <div class="row">
+                <div class="hero col-md-6 offset-md-3">
+                  <mat-form-field>
+                    <input matInput (keyup)="searchEmployee($event.target.value)" placeholder="Search...">
+                  </mat-form-field>
+                </div>
+              </div>
+          </div>
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <div *ngIf="loading" class="hero">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </div>
+              <table class="table table-hover hero">
+                <thead class="text-primary">
+                  <tr>
+                    <th>Photo</th>
+                    <th>Created On</th>
+                    <th>Name</th>
+                    <th>Join Date</th>
+                    <!-- <th>Temp. Address</th> -->
+                    <!-- <th>Address</th> -->
+                    <th>Is Working</th>
+                    <th>Primary Mobile</th>
+                    <th>Secondary Mobile</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <div *ngIf="noResult"> <h4 class="text-center">{{noResult}}</h4> </div>
+
+                  <tr *ngFor="let row of rows  | paginate: { itemsPerPage: 10,  currentPage: page, totalItems: count}">
+                    <td><img class="imgwrapper rounded img-responsive" [src]="row.profile_image ? row.profile_image: loaderImage" alt="photo"></td>
+                    <td>{{row.created_on | date : 'fullDate'}}</td>
+                    <td>{{row.first_name + ' ' + row.middle_name + ' ' + row.last_name }} </td>
+                    <td>{{row.join_date | date : 'fullDate'}}</td>
+                    <!-- <td class="text-trunc">{{row.temporary_address}}</td> -->
+                    <!-- <td class="text-trunc">{{row.permanent_address}}</td> -->
+                    <td>
+                        <i *ngIf="row.is_working_now == 1" class="fa fa-check" style="font-size:20px; color: green"></i>
+                        <i *ngIf="row.is_working_now == 0" class="fa fa-close" style="font-size:20px; color: red"></i>
+
+                    </td>
+                    <td>{{row.primary_mobile_number}}</td>
+                    <td>{{row.secondary_mobile_number}}</td>
+
+                    <td class="td-actions">
+                      <i class="fa fa-pencil" style="font-size:20px;color:purple; cursor: pointer;" matTooltip="Edit Employee!"
+                        [matTooltipPosition]="'above'" aria-hidden="true" (click)="editEmployee(row)"></i>&nbsp;
+                      <i class="fa fa-trash-o" style="font-size:20px;color:red; cursor: pointer;" matTooltip="Delete Employee!"
+                        [matTooltipPosition]="'above'" aria-hidden="true" (click)="deleteEmployee(row.employee_id)"></i>&nbsp;
+                      <i class="fa fa-eye" style="font-size:20px;color:black; cursor: pointer;" data-toggle="modal"
+                        data-target="#noticeModal" (click)="viewEmployee(row)" matTooltip="View Employee!"
+                        [matTooltipPosition]="'above'" aria-hidden="true"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="count > 10" class="pull-right">
+                  <pagination-controls [directionLinks]="false" (pageChange)="pageChange($event)"></pagination-controls>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- notice modal -->
+<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notice">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">{{employeeData.first_name + ' ' + employeeData.middle_name + ' ' +
+          employeeData.last_name }}</h5>
+        <button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="instruction">
+          <div class="row">
+            <div class="col-md-8">
+              <strong>Employee Details</strong>
+              <div class="text-justify">
+                  <p *ngIf="employeeData.created_on" class="text-black">Account Created:  <span class="description">{{employeeData.created_on |
+                      date: 'MMM d, y'}}</span> </p>
+                <p *ngIf="employeeData.dob" class="text-black"> Date Of Birth:   <span class="description">{{employeeData.dob
+                  | date: 'MMM d, y'
+                  }} </span> </p>
+              <p *ngIf="employeeData.gender" class="text-black"> Gender:   <span class="description">{{employeeData.gender | uppercase}}</span>
+              </p>
+              <p *ngIf="employeeData.is_working_now" class="text-black">Is Working:  <span class="description">  <span *ngIf="employeeData.is_working_now == 0">NO</span>
+                    <span *ngIf="employeeData.is_working_now == 1">YES</span></span> </p>
+              <p *ngIf="employeeData.join_date" class="text-black">Join Date:  <span class="description">{{employeeData.join_date | date:
+                  'MMM d, y'}}</span> </p>
+              <p *ngIf="employeeData.primary_mobile_number" class="text-black">Primary
+                Mobile:  <span class="description">{{employeeData.primary_mobile_number}}</span> </p>
+              <p *ngIf="employeeData.secondary_mobile_number" class="text-black">Secondary
+                Mobile:  <span class="description">{{employeeData.secondary_mobile_number}}</span> </p>
+              <p *ngIf="employeeData.qualification" class="text-black">Qualification :  <span class="description">{{employeeData.qualification | titlecase}}</span> </p>
+             
+              <p *ngIf="employeeData.permanent_address" class="text-black">Permanent
+                Address:  <span class="description">{{employeeData.permanent_address | titlecase}}</span> </p>
+              <p *ngIf="employeeData.temporary_address" class="text-black">Temporary
+                Address:  <span class="description">{{employeeData.temporary_address | titlecase}}</span> </p>
+
+              </div>
+           
+
+            </div>
+            <div class="col-md-4">
+              <div class="picture">
+                <img src="{{employeeData.profile_image}}" alt="Thumbnail Image" class="rounded img-fluid">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button mat-raised-button type="button" class="btn btn-rose btn-round" data-dismiss="modal">Sounds good!</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end notice modal -->

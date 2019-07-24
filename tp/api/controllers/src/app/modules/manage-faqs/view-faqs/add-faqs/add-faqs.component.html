@@ -1,0 +1,93 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card ">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">mail_outline</i>
+            </div>
+            <h4 class="card-title">{{formTitle}}</h4>
+          </div>
+          <div class="card-body ">
+            <form #faqForm="ngForm" method="#" action="#">
+              
+
+                <div class="row justify-content-center">  
+                <div class="col-6">
+                    <mat-form-field>
+                      <mat-select placeholder="Select Product" [(ngModel)]="faqData.faq_product_id" name="faq_product_idFK">
+                          <mat-option *ngFor="let product of productList" [value]="product.faq_product_id">
+                              {{product.faq_product_title}}
+                            </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+
+              <div class="row justify-content-center">  
+                <div class="col-12">
+                  <div class="input-group form-control-md">                    
+                    <mat-form-field class="example-full-width">
+                      <textarea matInput required [(ngModel)]="faqData.question"  name="question" placeholder="Question"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-center">  
+                <div class="col-12">
+                  <div class="input-group form-control-md">                    
+                    <mat-form-field class="example-full-width">
+                      <textarea matInput required [(ngModel)]="faqData.answer" name="answer" placeholder="Answer"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+
+              <!-- <h4>Upload File</h4> -->
+            
+              <!-- <div class="row justify-content-center">
+                  <input-file
+                  type="file"
+                  fileAccept=".png,.jpg,.doc,.docx,.pdf"
+                  (change)="handleFileChange()">
+              </input-file>
+              </div> -->
+
+              <div class="col-sm-4">
+                  <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                    <div class="fileinput-new thumbnail">
+                      <img src="{{file_name}}" id="wizardPicturePreview" alt="...">
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                    <div>
+                      <span class="btn btn-red btn-round btn-file">
+                        <span class="fileinput-new">Select file</span>
+                        <span class="fileinput-exists">Change</span>
+                        <input type="file" (change)="fileChange($event.target.files)" accept=".doc,.docx,.pdf,image/*" id="wizard-picture"
+                          aria-describedby="fileHelpBlock" name="..." />
+                      </span>
+                      <a href="javascript:void(0)" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i
+                          class="fa fa-times"></i>
+                        Remove</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pull-right">
+                <button *ngIf="!isEdited" mat-raised-button type="submit" (click)="addFaq(faqForm.value)" class="btn btn-fill btn-primary">Submit</button>
+                <button *ngIf="isEdited" mat-raised-button type="submit" (click)="editFaq(faqForm.value)" class="btn btn-fill btn-primary">Update</button>
+
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

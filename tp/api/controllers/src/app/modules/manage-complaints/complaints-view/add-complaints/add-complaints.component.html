@@ -1,0 +1,36 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card ">
+            <div class="card-header card-header-rose card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">mail_outline</i>
+              </div>
+              <h4 class="card-title">Add New Complaint</h4>
+            </div>
+            <div class="card-body ">
+              <form #complaintForm="ngForm" method="#" action="#">
+                
+                <div class="row justify-content-center">  
+                  <div class="col-12">
+                    <div class="input-group form-control-md">                    
+                      <mat-form-field class="example-full-width">
+                        <textarea matInput required [(ngModel)]="complaintData.title"  name="title" placeholder="Question"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>  
+                <div class="pull-right">
+                  <button *ngIf="!isEdited" mat-raised-button type="submit" (click)="addComplaint(complaintForm.value)" class="btn btn-fill btn-rose">Submit</button>
+                  <button *ngIf="isEdited" mat-raised-button type="submit" (click)="editComplaint(complaintForm.value)" class="btn btn-fill btn-rose">Update</button>
+  
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

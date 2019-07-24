@@ -1,0 +1,137 @@
+<div class="wrapper wrapper-full-page">
+  <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('./assets/img/login.jpg'); background-size: cover; background-position: top center;">
+    <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+    <div class="container">
+      <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+        <div class="text-center">
+          <a href="javascript:void(0)" [routerLink]="['/dashboard']"> <img style="top: 18px" width="80px" src="/assets/img/Rajsi_logo.png" />
+            <span class="text-white" style="font-weight: 500;
+      font-size: 20px;"> Rajsi Technologies</span></a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+        <form class="form" role="form" #f="ngForm" novalidate>
+          <div class="card card-login card-hidden">
+
+            <div class="card-header card-header-success text-center">
+              <h4 class="card-title">Admin Log in</h4>
+              <div class="social-line">
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="">
+                <div *ngIf="!forgotPassword && !newPassword && !sendOTPFlag">
+                  <mat-form-field class="example-full-width has-label">
+                    <input type="text" required name="mobile_number" maxlength="10" [pattern]="mobilePattern"
+                      [(ngModel)]="mobile_number" matInput id="mobile_number" placeholder="Mobile Number..." #numbers="ngModel">
+                    <mat-hint align="end">{{numbers.value?.length || 0}}/10</mat-hint>
+                    <mat-error *ngIf="numbers.errors?.pattern">
+                      Please enter numbers only
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width has-label">
+                    <input type="text" required [(ngModel)]="password" autocomplete="off" [type]="hidePass ? 'password' : 'text'"
+                      name="password" matInput id="password" placeholder="Password" #pass="ngModel">
+                    <mat-hint align="end">{{pass.value?.length || 0}}/20</mat-hint>
+                    <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="formValid === false">
+                      Please enter a correct password
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Send OTP FORM -->
+                <div *ngIf="forgotPassword && !sendOTPFlag && !newPassword">
+                  <mat-form-field class="example-full-width has-label">
+                    <input type="text" required name="mobile_number" maxlength="10" [pattern]="mobilePattern"
+                      [(ngModel)]="mobile_number_number" matInput id="mobile_number" placeholder="Mobile Number..."
+                      #numbers="ngModel">
+                    <mat-hint align="end">{{numbers.value?.length || 0}}/10</mat-hint>
+                    <mat-error *ngIf="numbers.errors?.pattern">
+                      Please enter numbers only
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- Send OTP FORM End -->
+
+              <!-- Verify OTP FORM -->
+
+              <div *ngIf="forgotPassword && sendOTPFlag">
+                <p>{{timeLeft}} Seconds Left....</p>
+                <span class="bmd-form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">bubble_chart</i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" name="otp" maxlength="6" [(ngModel)]="otp" placeholder="OTP...">
+                  </div>
+                </span>
+              </div>
+
+              <!-- Verify OTP FORM End-->
+
+              <!-- New Password Form -->
+
+              <div *ngIf="!sendOTPFlag && newPassword ">
+
+                <mat-form-field class="example-full-width has-label">
+                  <input type="text" required [(ngModel)]="password" autocomplete="off" [type]="hidePass ? 'password' : 'text'"
+                    name="password" matInput id="password" placeholder="Password" #pass="ngModel">
+                  <mat-hint align="end">{{pass.value?.length || 0}}/20</mat-hint>
+                  <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+              </div>
+
+              <!-- New Password Form End -->
+
+            </div>
+            <div class="card-footer justify-content-center">
+              <div *ngIf="this.authService.loginLoader == true">
+                <button *ngIf="!forgotPassword" class="btn btn-success  btn-md" (click)="login(f.value)" type="submit"><i
+                    class="material-icons">fingerprint</i> Lets Go</button>
+                <br>
+                <a href="javascript:void(0)" *ngIf="!forgotPassword && !resetPassword" (click)="forgotPassw()">Forgot
+                  Password?</a>
+              </div>
+              <button *ngIf="forgotPassword && !newPassword" class="btn btn-success  btn-md" (click)="sendOTP(f.value)"
+                type="submit"><i class="material-icons">fingerprint</i> Send OTP</button>
+              <br>
+
+              <a href="javascript:void(0)" *ngIf="forgotPassword && !newPassword" tooltip="back to login" (click)="return()"><i
+                  class="material-icons">rotate_90_degrees_ccw</i></a>
+
+
+              <button class="btn btn-success  btn-md" *ngIf="forgotPassword && sendOTPFlag" (click)="verifyOTP(f.value)"
+                type="submit"><i class="material-icons">fingerprint</i> Verify</button>
+
+              <button class="btn btn-success  btn-md" *ngIf="forgotPassword && !sendOTPFlag && newPassword" (click)="resetAccountassword(f.value)"
+                type="submit"><i class="material-icons">fingerprint</i> Reset</button>
+
+              <a href="javascript:void(0)" *ngIf="forgotPassword && sendOTPFlag && !newPassword" tooltip="back to login"
+                (click)="return()"><i class="material-icons">rotate_90_degrees_ccw</i></a>
+
+              <span *ngIf="this.authService.loginLoader == false">
+                <i class="fa fa-spinner fa-spin loadspiner" style="font-size:38px;color:#4caf50"></i>
+              </span>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <footer class="footer ">
+      <div class="container">
+        <div class="copyright pull-right">
+          &copy;
+          {{test | date: 'yyyy'}}, made with <i class="fa heart fa-heart fa-beat"></i> by
+          <a href="http://stackmint.com" target="_blank">stackmint</a> for a better web.
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>

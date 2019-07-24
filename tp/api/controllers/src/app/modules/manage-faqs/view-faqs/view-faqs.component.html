@@ -1,0 +1,107 @@
+<div class="main-content">
+   <div class="container-fluid">
+      <div class="row justify-content-center title">
+         <div class="col-6 hero">
+            <mat-form-field>
+               <mat-select placeholder="Select Product" [disabled]="productList == null">
+                  <mat-option *ngFor="let product of productList"  [value]="product.faq_product_id" (click)="getAllFaq(product)">
+                     {{product.faq_product_title}}
+                  </mat-option>
+               </mat-select>
+            </mat-form-field>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-md-12">
+            <div class="card">
+               <div class="card-header card-header-icon card-header-warning">
+                  <div class="pull-right">
+                     <button class="btn btn-md btn-warning hero" (click)="addFaq()">Add FAQ</button>
+                  </div>
+                  <div class="card-icon">
+                     <i class="material-icons hero">assignment</i>
+                  </div>
+                  <h4 class="card-title hero">{{tableTitle}}</h4>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive">
+                     <div *ngIf="loading">
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                     </div>
+                     <table class="table table-hover hero">
+                        <thead class="text-primary">
+                           <tr>
+                              <th>Created On</th>
+                              <th>Question</th>
+                              <th>Answer</th>
+                              <th>Files</th>
+                              <th>Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                      <h3 *ngIf="rows.length === 0 && !loading" class="text-warning text-center">No data found! Please select product</h3>
+                             
+                           <tr *ngFor="let row of rows   | paginate: { itemsPerPage: 10,  currentPage: page, totalItems: count}">
+                              <td>{{row.created_on | date : 'fullDate'}}</td>
+                              <td class="text-justify text-truncate text-trunc">{{row.question}}</td>
+                              <td class="text-justify text-truncate text-trunc">{{row.answer}}</td>
+                              <td *ngIf="row.document_file !=null"><button class="btn btn-round btn-sm" (click)="downloadFile(row.document_file)">download</button></td>
+                              <td *ngIf="row.document_file == null"><span class="text-success">___________</span></td>
+
+                              <td class="td-actions">
+                                 <i class="fa fa-pencil" style="font-size:20px;color:purple; cursor: pointer;"
+                                    matTooltip="Edit Faq!" [matTooltipPosition]="'above'" aria-hidden="true" (click)="editFaq(row)"></i>&nbsp;
+                                 <i class="fa fa-trash-o" style="font-size:20px;color:red; cursor: pointer;" matTooltip="Delete Faq!"
+                                    [matTooltipPosition]="'above'" aria-hidden="true" (click)="deleteFaq(row.faq_id)"></i>&nbsp;
+                                 <i class="fa fa-eye" style="font-size:20px;color:black; cursor: pointer;" data-toggle="modal"
+                                    data-target="#noticeModal" (click)="viewFaq(row)" matTooltip="View Faq!"
+                                    [matTooltipPosition]="'above'" aria-hidden="true"></i>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <div *ngIf="count > 10" class="pull-right">
+                        <pagination-controls [directionLinks]="false" (pageChange)="pageChange($event)"></pagination-controls>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<!-- notice modal -->
+<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-notice">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">FAQ Product: {{tableTitle}}</h5>
+
+            <button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+               <i class="material-icons">close</i>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="instruction">
+               <div class="row">
+                  <div class="col-md-12">
+                     <strong>Question</strong>
+                     <p class="description">{{faqData.question}}</p>
+                     <strong>Answer</strong>
+                     <p class="description">{{faqData.answer}}</p>
+                  </div>
+               </div>
+
+               <button class="btn btn-round btn-sm" (click)="downloadFile(faqData.document_file)">download</button>
+            </div>
+         </div>
+         <div class="modal-footer justify-content-center">
+            <button mat-raised-button type="button" class="btn btn-sm btn-round" data-dismiss="modal">Sounds good!</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end notice modal -->

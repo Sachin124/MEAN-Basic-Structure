@@ -1,0 +1,97 @@
+<div class="main-content">
+  <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-12">
+           <div class="card">
+              <div class="card-header card-header-icon card-header-danger">
+                 <div class="pull-right">
+                    <button class="btn btn-md btn-danger hero" (click)="addNews()">Add News</button>
+                 </div>
+                 <div class="card-icon">
+                    <i class="material-icons hero">assignment</i>
+                 </div>
+                 <h4 class="card-title hero">News</h4>
+                 <div class="row">
+                     <div class="hero col-md-6 offset-md-3">
+                       <mat-form-field>
+                         <input matInput (keyup)="searchNews($event.target.value)" placeholder="Search...">
+                       </mat-form-field>
+                     </div>
+                   </div>
+              </div>
+              <div class="card-body">
+                 <div class="table-responsive">
+                     <div *ngIf="loading">
+                           <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                        </div>
+                    <table class="table table-hover hero">
+                       <thead class="text-primary">
+                          <tr>
+                             <th>Photo</th>
+                             <th>Created On</th>
+                             <th>Heading</th>
+                             <th>News</th>
+                             <th>Action</th>
+                          </tr>
+                       </thead>
+                      <h3 *ngIf="rows.length === 0 && !loading" class="text-center text-warning">No data found!</h3>
+
+                       <tbody>
+                          
+
+                          <tr *ngFor="let row of rows  | paginate: { itemsPerPage: 10,  currentPage: page, totalItems: count}">
+                             <td><img class="imgwrapper rounded img-responsive" src="{{row.photo}}" alt="photo"></td>
+                             <td>{{row.created_on | date : 'fullDate'}}</td>
+                             <td>{{row.heading}}</td>
+                             <td class="text-justify text-truncate text-trunc">{{row.news}}</td>
+                             <td class="td-actions">
+                                <i class="fa fa-pencil" style="font-size:20px;color:purple; cursor: pointer;" matTooltip="Edit News!" [matTooltipPosition]="'above'" aria-hidden="true" (click)="editNews(row)"></i>&nbsp;
+                                <i class="fa fa-trash-o" style="font-size:20px;color:red; cursor: pointer;" matTooltip="Delete News!" [matTooltipPosition]="'above'" aria-hidden="true" (click)="deleteNews(row.news_id)"></i>&nbsp;
+                                <i class="fa fa-eye" style="font-size:20px;color:black; cursor: pointer;"  data-toggle="modal" data-target="#noticeModal" (click)="viewNews(row)"  matTooltip="View News!" [matTooltipPosition]="'above'" aria-hidden="true" ></i>
+                             </td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <div *ngIf="count > 10" class="pull-right">
+                        <pagination-controls [directionLinks]="false" (pageChange)="pageChange($event)"></pagination-controls>
+                      </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- notice modal -->
+<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notice">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="myModalLabel">{{newsData.heading}}</h5>
+           <button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+           <i class="material-icons">close</i>
+           </button>
+        </div>
+        <div class="modal-body">
+           <div class="instruction">
+              <div class="row">
+                 <div class="col-md-8">
+                    <strong>News Details</strong>
+                    <p class="description">{{newsData.news}}</p>
+                 </div>
+                 <div class="col-md-4">
+                    <div class="picture">
+                       <img src="{{newsData.photo}}" alt="Thumbnail Image" class="rounded img-fluid">
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+           <button mat-raised-button type="button" class="btn btn-rose btn-round" data-dismiss="modal">Sounds good!</button>
+        </div>
+     </div>
+  </div>
+</div>
+<!-- end notice modal -->

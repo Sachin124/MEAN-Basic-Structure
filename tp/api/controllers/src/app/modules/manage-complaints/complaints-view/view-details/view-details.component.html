@@ -1,0 +1,213 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div *ngFor="let row of rows">
+      <!-- <div class="row">
+       
+      </div> -->
+      <div class="row">
+        <div *ngIf="row.client_site.site_name" class="col-md-4">
+          <div class="card card-height">
+            <!-- <div class="card-header card-header-icon card-header-success">
+              <div class="card-icon">
+                <i class="material-icons">info</i>
+              </div>
+              <h4 class="card-title">Client Site</h4>
+            </div> -->
+            <div class="card-header card-header-icon " >
+              <div  id="img-card" class="card-icon" >
+              <img height="70px" width="80px" src="{{row.client_details.profile_image}}" alt="">
+              </div>
+              <h4 class="card-title">Client Details</h4>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">{{row.client_site.site_name}}</h4>
+              <h6 class="card-title">{{row.client_details.first_name + ' ' + row.client_details.last_name}}</h6>
+              <h6 class="card-title"> <a href="tel: {{row.client_details.primary_mobile_number}}"> {{row.client_details.primary_mobile_number}}</a></h6>
+
+              <p class="card-description">
+                {{row.client_site.address}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="row.employee_details.first_name" class="col-md-4">
+          <div class="card card-height">
+            <div class="card-header card-header-icon " >
+              <div  id="img-card" class="card-icon" >
+              <img height="70px" width="80px" src="{{row.employee_details.profile_image}}" alt="">
+              </div>
+              <h4 class="card-title">Employee Details</h4>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">{{row.employee_details.first_name + ' ' + row.employee_details.middle_name + ' ' +
+                row.employee_details.last_name }}</h4>
+              <p class="card-description">
+                Mobile: <a href="tel:{{row.employee_details.primary_mobile_number}}">{{row.employee_details.primary_mobile_number}}</a>
+              </p>            
+            </div>
+          </div>
+        </div>
+        <div *ngIf="row.complaint_type" class="col-md-4">
+          <div class="card card-height">
+            <div class="card-header card-header-icon card-header-danger">
+              <div class="card-icon">
+                <i class="material-icons">info</i>
+              </div>
+              <h4 class="card-title">Complaint</h4>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">{{row.complaint_type}}</h4>
+              <p class="card-description">
+                {{row.complaint_description}}
+              </p>
+              <p class="card-description">
+                Raised On: {{row.created_on}}
+              </p>
+              <p class="card-description">
+                Assign Date: {{row.on_date}}
+              </p>
+              <!-- <button *ngIf="row.complaint_current_status == 0" mat-raised-button data-toggle="modal" data-target="#assignTaskModal" matTooltip="Assign Task"
+              [matTooltipPosition]="'above'" (click)="getAllEmployees()" class="btn btn-fill btn-success">Assign
+              Task</button> -->
+              <button  *ngIf="row.complaint_current_status == 0" type="button"  matTooltip="Assign Task" [matTooltipPosition]="'above'" (click)="getAllEmployees()" class="btn btn-primary" (click)="openModal(assignTaskModal)">Assign Task</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="row">
+
+        <div class="col-md-12">
+          <div *ngIf="row.complaint_status[0]" class="header ">
+            <h3 class="title text-center">Timeline</h3>
+          </div>
+          <div class="card card-plain">
+            <div class="card-content">
+              <ul class="timeline">
+                <li *ngIf="row.complaint_status[0]" class="timeline-inverted">
+                  <div class="timeline-badge danger">
+                    <i class="material-icons">card_travel</i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <span class="label text-info">{{row.complaint_status[0].title}}</span>
+                    </div>
+                    <div class="timeline-body">
+                      <p>{{row.complaint_status[0].created_on | date: 'medium'}}</p>
+                    </div>
+                  </div>
+                </li>
+                <li *ngIf="row.complaint_status[1]">
+                  <div class="timeline-badge success">
+                    <i class="material-icons">extension</i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <span class="label text-warning">{{row.complaint_status[1].title}}</span>
+                    </div>
+                    <div class="timeline-body">
+                      <p>{{row.complaint_status[1].created_on | date: 'medium'}}</p>
+                    </div>
+                  </div>
+                </li>
+                <li *ngIf="row.complaint_status[2]" class="timeline-inverted">
+                  <div class="timeline-badge info">
+                    <i class="material-icons">fingerprint</i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <span class="label text-success">{{row.complaint_status[2].title}}</span>
+                    </div>
+                    <div class="timeline-body">
+                      <p>{{row.complaint_status[2].created_on | date: 'medium'}}</p>
+                    </div>
+                  </div>
+                </li>
+                <li *ngIf="row.complaint_status[3]">
+                  <div class="timeline-badge warning">
+                    <i class="material-icons">flight_land</i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <span class="label text-success">{{row.complaint_status[3].title}}</span>
+                    </div>
+                    <div class="timeline-body">
+                      <p>{{row.complaint_status[3].created_on | date: 'medium'}}</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li *ngIf="row.complaint_status[4]">
+                  <div class="timeline-badge warning">
+                    <i class="material-icons">check</i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <span class="label text-warning">{{row.complaint_status[3].title}}</span>
+                    </div>
+                    <div class="timeline-body">
+                      <p>{{row.complaint_status[4].created_on | date: 'medium'}}</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="row.average_to_resolve_complaints" class="row justify-content-center">
+          
+<h4 class="text-green">Average time to resolve:  {{row.average_to_resolve_complaints}} <i class="fa fa-thumbs-up faa-bounce animated text-danger"></i></h4>  
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Assign Task modal -->
+<ng-template #assignTaskModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Assign task to employee.</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #assignTaskForm="ngForm" method="#" action="#">
+
+         
+      <div class="col-12 justify-content-center">
+        <mat-form-field>
+          <mat-select  required placeholder="Select Employee" [compareWith]="compareFn" [(ngModel)]="taskData.employee_id"
+            name="employee_id">
+            <mat-option *ngFor="let employee of employeeData" [value]="employee.employee_id">
+              {{ employee.employee_name | titlecase}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-12 justify-content-center">
+        <mat-form-field>
+          <input matInput id="on_date" required [(ngModel)]="taskData.on_date" [min]="minDate" name="on_date" [matDatepicker]="pickera"
+            placeholder="Choose On Date" (click)="pickera.open()">
+          <mat-datepicker-toggle matSuffix [for]="pickera"></mat-datepicker-toggle>
+          <mat-datepicker #pickera></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+  <div class="">
+    <button mat-raised-button type="submit" (click)="assignNow(assignTaskForm.value)" class="btn btn-fill btn-block btn-success">Assign</button>
+
+  </div>
+
+</form>
+  </div>
+</ng-template>
+<!-- Assign Task modal End -->

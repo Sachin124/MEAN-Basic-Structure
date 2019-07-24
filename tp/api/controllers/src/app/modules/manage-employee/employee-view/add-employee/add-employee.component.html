@@ -1,0 +1,236 @@
+<div class="main-content">
+    <div class="container-fluid">
+       <div class="row justify-content-center">
+          <div class="col-md-8">
+             <div class="card ">
+                <div class="card-header card-header-info card-header-icon">
+                   <div class="card-icon">
+                      <i class="material-icons">account_circle</i>
+                   </div>
+                   <h4 class="card-title">{{formTitle}}</h4>
+                </div>
+                <div class="card-body ">
+                   <form #employeeDataForm="ngForm" method="#" action="#">
+                      <div class="row justify-content-center">
+                         <div class="col-sm-4">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                               <div class="fileinput-new thumbnail">
+                                  <img src="{{photoPath}}" id="wizardPicturePreview" alt="...">
+                               </div>
+                               <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                               <div>
+                                  <span class="btn btn-red btn-round btn-file">
+                                  <span class="fileinput-new">Select image</span>
+                                  <span class="fileinput-exists">Change</span>
+                                  <input type="file" (change)="fileChange($event.target.files)" accept="image/*" id="wizard-picture"
+                                     aria-describedby="fileHelpBlock" name="..." />
+                                  </span>
+                                  <a href="javascript:void(0)" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i
+                                     class="fa fa-times"></i>
+                                  Remove</a>
+                               </div>
+                            </div>
+                         </div>
+                         <div class="col-6">
+                            <mat-form-field class="example-full-width">
+                               <input matInput  [(ngModel)]="employeeData.first_name" name="first_name" placeholder="First Name"
+                               type="text" #firstName="ngModel" [ngClass]="{ 'is-invalid': employeeDataForm.submitted && firstName.invalid }" required>
+                               <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                                  I am required!
+                               </mat-error>
+                               <mat-error *ngIf="employeeDataForm.submitted && firstName.invalid">
+                                  <mat-error *ngIf="firstName.errors.required">First Name is required</mat-error>
+                               </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                               <input matInput required [(ngModel)]="employeeData.middle_name" name="middle_name" placeholder="Middle Name"
+                               type="text" #middleName="ngModel" [ngClass]="{ 'is-invalid': employeeDataForm.submitted && middleName.invalid }">
+                               <mat-error *ngIf="middleName.invalid && (middleName.dirty || middleName.touched)">
+                                  I am required!
+                               </mat-error>
+                               <mat-error *ngIf="employeeDataForm.submitted && middleName.invalid">
+                                  <mat-error *ngIf="middleName.errors.required">Middle Name is required</mat-error>
+                               </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                               <input matInput required [(ngModel)]="employeeData.last_name" name="last_name" placeholder="Last Name"
+                               type="text" #lastName="ngModel" [ngClass]="{ 'is-invalid': employeeDataForm.submitted && lastName.invalid }">
+                               <mat-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                                  I am required!
+                               </mat-error>
+                               <mat-error *ngIf="employeeDataForm.submitted && lastName.invalid">
+                                  <mat-error *ngIf="lastName.errors.required">Last Name is required</mat-error>
+                               </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                               <input matInput required pattern="[0-9]+" [(ngModel)]="employeeData.primary_mobile_number"
+                               minlength="10"  maxlength="10" name="primary_mobile_number" placeholder="Primary Mobile Number" type="text"
+                               #numbers="ngModel"  [ngClass]="{ 'is-invalid': employeeDataForm.submitted && numbers.invalid }">
+                               <mat-error *ngIf="numbers.errors?.pattern">
+                                  Let me guess your mobile number has no input characters!
+                               </mat-error>
+                               <mat-error *ngIf="employeeDataForm.submitted && numbers.invalid">
+                                  <mat-error *ngIf="numbers.errors.required">Mobile number is required</mat-error>
+                                  <mat-error *ngIf="numbers.errors?.minlength">Enter 10 digit mobile number</mat-error>
+                               </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                               <input matInput pattern="[0-9]+" [(ngModel)]="employeeData.secondary_mobile_number"  minlength="10" maxlength="10"
+                               name="secondary_mobile_number" placeholder="Secondary Mobile Number" type="text" #numbers1="ngModel"
+                                 [ngClass]="{ 'is-invalid': employeeDataForm.submitted && numbers1.invalid }">
+                               <mat-error *ngIf="numbers1.errors?.pattern">
+                                  Let me guess your mobile number has no input characters!
+                               </mat-error>
+                               <mat-error *ngIf="employeeDataForm.submitted && numbers1.invalid">
+                                  <mat-error *ngIf="numbers1.errors?.minlength">Enter 10 digit mobile number</mat-error>
+                               </mat-error>
+                            </mat-form-field>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-6">
+                            <mat-form-field class="example-full-width">
+                               <input matInput [(ngModel)]="employeeData.temporary_address" name="temporary_address" placeholder="Temporary Address"
+                               type="text" #search>
+                            </mat-form-field>
+                         </div>
+                         <div class="col-6">
+                            <mat-form-field class="example-full-width">
+                               <input matInput [(ngModel)]="employeeData.permanent_address" name="permanent_address" placeholder="Permanent Address"
+                               type="text" #searchTwo #searchAddress="ngModel" [ngClass]="{ 'is-invalid': employeeDataForm.submitted && searchAddress.invalid }" required>
+                               <mat-error *ngIf="employeeDataForm.submitted && searchAddress.invalid">
+                                  <mat-error *ngIf="searchAddress.errors.required">Address is required</mat-error>
+                               </mat-error>
+                            </mat-form-field>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                               <input required [(ngModel)]="employeeData.password" autocomplete="new-password" name="password"
+                               [type]="hidePass ? 'password' : 'text'" matInput placeholder="Password" #pass="ngModel" 
+                                [ngClass]="{ 'is-invalid': employeeDataForm.submitted && pass.invalid }">
+                               <mat-hint align="end">{{pass.value?.length || 0}}/10</mat-hint>
+                               <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                               <mat-error *ngIf="pass.invalid && (pass.dirty || pass.touched)">
+                                  Please secure employee account entering the password!
+                               </mat-error>
+                               <mat-error *ngIf="employeeDataForm.submitted && pass.invalid">
+                                  <mat-error *ngIf="pass.errors.required">Password is required</mat-error>
+                               </mat-error>
+                            </mat-form-field>
+                         </div>
+                         <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                               <input matInput [(ngModel)]="employeeData.qualification" name="qualification" placeholder="Qualification"
+                               type="text">
+                            </mat-form-field>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                            
+                            <input matInput placeholder="Choose a DOB" [max]="dobValid" 
+                            [(ngModel)]="employeeData.dob" name="dob"   #dobDate="ngModel" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                            [ngClass]="{ 'is-invalid': employeeDataForm.submitted && dobDate.invalid }" required>
+                            <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                           </mat-form-field>
+
+                            <div class="errorMsg" *ngIf="dobValid <= employeeData.dob">
+                               Employee mustbe 18+ year old!
+                            </div>
+
+                            <div *ngIf="employeeDataForm.submitted && dobDate.invalid" class="invalid-feedback">
+                               <div *ngIf="dobDate.errors.required">DOB is required</div>
+                            </div>
+                         </div>
+                         <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+
+                            <input matInput 
+                            placeholder="Join Date"
+                            [max]="maxDate"
+                            [(ngModel)]="employeeData.join_date" 
+                            name="join_date" 
+                            [owlDateTimeTrigger]="dt4"
+                            [owlDateTime]="dt4"
+                            #joinDate="ngModel"
+                            [ngClass]="{ 'is-invalid': employeeDataForm.submitted && joinDate.invalid }" required>
+                            <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                           </mat-form-field>
+
+                            <div class="errorMsg" *ngIf="employeeData.dob >= employeeData.join_date">
+                               Are you sure your employee joins before birth!
+                            </div>
+                            <div *ngIf="employeeDataForm.submitted && joinDate.invalid" class="invalid-feedback">
+                               <div *ngIf="joinDate.errors.required">Join date is required</div>
+                            </div>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-6">
+                            <mat-form-field class="example-full-width">
+                               <input matInput [(ngModel)]="employeeData.driving_licence" maxlength="15" minlength="15" name="driving_licence"
+                               placeholder="Driving Licence" type="text" #drivingLicence="ngModel">
+                               <mat-error *ngIf="drivingLicence.errors?.minlength">
+                                  Please enter 15 digit <b>Driving Licence</b> number!
+                               </mat-error>
+                            </mat-form-field>
+                         </div>
+                         <div class="col-6">
+                            <mat-form-field class="example-full-width">
+                               <input matInput [(ngModel)]="employeeData.aadhaar_number" maxlength="12" minlength="12" name="aadhaar_number"
+                               placeholder="Aadhaar Number" type="text" #aadhaarNumber="ngModel">
+                               <mat-error *ngIf="aadhaarNumber.errors?.minlength">
+                                  Please enter 16 digit <b>Aadhaar Number</b> !
+                               </mat-error>
+                            </mat-form-field>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-6">
+                            <mat-form-field class="example-full-width">
+                               <input matInput pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="employeeData.email_id"
+                               name="email_id" placeholder="Email" type="text" #email="ngModel">
+                               <mat-error *ngIf="email.errors?.pattern">
+                                  Please type your e-mail address in the format <b> name@example.com </b>!
+                               </mat-error>
+                            </mat-form-field>
+                         </div>
+                         <div class="col-6 mt-15">
+                            <mat-radio-group [(ngModel)]="employeeData.gender" name="gender">
+                            <mat-radio-button value="male">Male</mat-radio-button>
+                            &nbsp;
+                            <mat-radio-button value="female">Female</mat-radio-button>                          
+                            </mat-radio-group>
+                         </div>
+                      </div>
+                      <div class="row justify-content-center title">
+                         <h4> Is Working</h4>
+                      </div>
+                      <div class="row justify-content-center">
+                         <mat-radio-group [(ngModel)]="employeeData.is_working_now" name="is_working_now">
+                         <mat-radio-button value="1">Yes</mat-radio-button>
+                         &nbsp;
+                         <mat-radio-button value="0">No</mat-radio-button>
+                         </mat-radio-group>
+                      </div>
+                      <div class="pull-right">
+                         <button *ngIf="!isEdited && uploadingLoader == false" mat-raised-button  matTooltipClass="primary-tooltip" [matTooltip]="!employeeDataForm.valid ? 'You must complete all the required fields.' : null" 
+                         matTooltipPosition="above"  (click)="addEmployee(employeeDataForm)"
+                         class="btn btn-fill btn-info">Submit</button>
+                         <button *ngIf="isEdited && uploadingLoader == false" [matTooltip]="!employeeDataForm.valid ? 'You must complete all the required fields.' : null" 
+                         matTooltipPosition="above"  mat-raised-button  (click)="editEmployee(employeeDataForm)"
+                         class="btn btn-fill btn-info">Update</button>
+                         <span *ngIf="uploadingLoader == true">
+                         <i class="fa fa-spinner fa-spin loadspiner" style="font-size:38px;color:#18bcd1"></i>
+                         </span>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>

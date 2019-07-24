@@ -1,0 +1,113 @@
+<div class="main-content">
+  <div class="container-fluid">
+    
+      <ngx-ui-loader></ngx-ui-loader>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card ">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">mail_outline</i>
+            </div>
+            <h4 class="card-title">{{formTitle}}</h4>
+          </div>
+          <div class="card-body ">
+            <form #sheduleForm="ngForm" method="#" action="#">
+
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-select placeholder="Select Client" required [(ngModel)]="sheduleData.client_id" name="client_id">
+                      <mat-option *ngFor="let client of clientList" [value]="client.client_id" (click)="getSiteList(client.client_id)">
+                        {{client.first_name }} {{client.last_name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-select placeholder="Select Site" required [disabled]="!siteList" [(ngModel)]="sheduleData.client_site_id"
+                      name="client_site_id">
+                      <mat-option *ngFor="let site of siteList" [value]="site.client_site_id" (click)="getEmployeeList()">
+                        {{site.site_name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-select placeholder="Select Employee" required [disabled]="!sheduleData.client_site_id"
+                      [(ngModel)]="sheduleData.employee_id" name="employee_id">
+                      <mat-option *ngFor="let employee of employeeList" [value]="employee.employee_id" (click)="getComplaintTypeList()">
+                        {{employee.first_name}} {{employee.last_name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-select placeholder="Type of issue" required [disabled]="!sheduleData.employee_id" [(ngModel)]="sheduleData.complaint_type_id"
+                      name="complaint_type_id">
+                      <mat-option *ngFor="let complaintType of complaintTypeList" [value]="complaintType.complaint_type_id">
+                        {{complaintType.title}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <div class="col-6">
+                  <!-- <mat-form-field> -->
+                    <!-- <input matInput id="on_date" [min]="minDate" required [(ngModel)]="sheduleData.on_date" name="on_date" [matDatepicker]="pickera"
+                      placeholder="Schedule on date" (click)="pickera.open()">
+                    <mat-datepicker-toggle matSuffix [for]="pickera"></mat-datepicker-toggle>
+                    <mat-datepicker #pickera></mat-datepicker> -->
+
+                    <input class="form-control" placeholder="Schedule on" [min]="minDate" required [(ngModel)]="sheduleData.on_date" name="on_date"  [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+                    <owl-date-time [hour12Timer] = "true" #dt></owl-date-time>
+
+                  <!-- </mat-form-field> -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group form-control-md">
+                    <mat-form-field class="example-full-width">
+                      <textarea matInput name="description" [(ngModel)]="sheduleData.complaint_description" name="complaint_description"
+                        placeholder="Description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pull-right">
+                <button *ngIf="!isEdited  && uploadingLoader == false" mat-raised-button type="button" matTooltipClass="primary-tooltip" [matTooltip]="!sheduleForm.valid ? 'You must complete all the required fields.' : null" 
+                matTooltipPosition="above" (click)="addSchedule(sheduleForm.value)"
+                  class="btn btn-fill btn-success">Submit</button>
+                <button *ngIf="isEdited  && uploadingLoader == false" mat-raised-button type="button" matTooltipClass="primary-tooltip" [matTooltip]="!sheduleForm.valid ? 'You must complete all the required fields.' : null" 
+                matTooltipPosition="above" (click)="editSchedule(sheduleForm.value)"
+                  class="btn btn-fill btn-success">Update</button>
+                  <span *ngIf="uploadingLoader == true">
+                    <i class="fa fa-spinner fa-spin loadspiner" style="font-size:38px;color:#00aec5"></i>
+                  </span>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

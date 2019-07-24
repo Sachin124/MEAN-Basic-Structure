@@ -1,0 +1,16 @@
+.card-height{
+    height: 90%;
+}
+
+#img-card  {
+    background-color: none !important;
+    padding: none;
+}
+::ng-deep .cdk-overlay-container{
+    z-index: 1200 !important;
+}
+
+.text-green{
+    color: #4caf50;
+    font-weight: 500;
+}
